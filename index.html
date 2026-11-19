@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Team Room | Custom Bow Shop</title>
+<meta name="description" content="The Team Room Custom Bow Shop. Custom bowstrings, precision bow tuning and hand-built arrows for bowhunters. Authorized Hoyt dealer.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000;
+    --ink:#0b0b0b;
+    --panel:#111;
+    --white:#fff;
+    --bone:#e8e3d9;
+    --mute:#9a9a9a;
+    --line:rgba(255,255,255,.16);
+    --serif:"Cormorant Garamond", "Times New Roman", serif;
+    --sans:"Archivo", "Helvetica Neue", Arial, sans-serif;
+    --pad:clamp(1.25rem, 5vw, 5rem);
+    --max:1440px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--black);color:var(--white);font-family:var(--sans);font-size:clamp(1.125rem,1.05rem + .35vw,1.375rem);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+  .eyebrow{font-family:var(--sans);font-weight:600;font-size:.8rem;letter-spacing:.32em;text-transform:uppercase;color:var(--mute)}
+  .display{font-family:var(--serif);font-weight:500;line-height:.92;letter-spacing:-.01em}
+  .rule{height:1px;background:var(--line);border:0}
+
+  /* ---------- NAV ---------- */
+  .nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .4s, border-color .4s;border-bottom:1px solid transparent}
+  .nav.solid{background:rgba(0,0,0,.92);backdrop-filter:blur(8px);border-color:var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:92px}
+  .brand{display:flex;align-items:center;gap:1rem}
+  .brand img{height:54px;width:auto}
+  .brand span{font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;line-height:1.35}
+  .links{display:flex;gap:2.4rem;align-items:center;font-size:.95rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+  .links a:not(.btn){position:relative;padding:.3rem 0}
+  .links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--white);transition:width .3s}
+  .links a:not(.btn):hover::after{width:100%}
+  .btn{display:inline-flex;align-items:center;gap:.75rem;border:1px solid var(--white);padding:1.05rem 1.8rem;font-size:.95rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .25s,color .25s;cursor:pointer;background:transparent;color:var(--white);font-family:var(--sans)}
+  .btn:hover{background:var(--white);color:var(--black)}
+  .btn.fill{background:var(--white);color:var(--black)}
+  .btn.fill:hover{background:transparent;color:var(--white)}
+  .btn .arr{transition:transform .25s}
+  .btn:hover .arr{transform:translateX(5px)}
+  .menu-toggle{display:none;background:none;border:0;color:#fff;font:600 .85rem var(--sans);letter-spacing:.25em;text-transform:uppercase;cursor:pointer}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1642265153143-7adcd403e352?auto=format&fit=crop&w=2400&q=80") center 35%/cover;filter:grayscale(.45) brightness(.62) contrast(1.08);transform:scale(1.06);animation:drift 22s ease-out forwards}
+  @keyframes drift{to{transform:scale(1)}}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.35) 60%,#000 100%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(3rem,8vh,6rem)}
+  .hero h1{font-size:clamp(3.6rem,10.5vw,10.5rem);max-width:12ch}
+  .hero h1 em{font-style:italic;color:var(--bone)}
+  .hero-foot{display:grid;grid-template-columns:1.2fr auto;gap:2rem;align-items:end;margin-top:2.75rem;border-top:1px solid var(--line);padding-top:2rem}
+  .hero-foot p{max-width:34ch;font-size:clamp(1.2rem,1rem + .6vw,1.6rem);color:#e6e6e6}
+  .cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+  .dealer-tag{position:absolute;z-index:3;top:128px;right:var(--pad);border:1px solid var(--line);padding:.85rem 1.2rem;font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+  .dealer-tag b{display:block;font-family:var(--serif);font-size:1.6rem;letter-spacing:.02em;text-transform:none;font-weight:600;margin-top:.15rem}
+
+  /* ---------- TICKER ---------- */
+  .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:1.4rem 0}
+  .ticker .track{display:inline-flex;gap:3.5rem;animation:tick 38s linear infinite;font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-style:italic}
+  .ticker .track span{display:inline-flex;align-items:center;gap:3.5rem}
+  .ticker .track span::after{content:"";width:9px;height:9px;border:1px solid var(--white);transform:rotate(45deg)}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  /* ---------- SECTION BASICS ---------- */
+  section{position:relative}
+  .sec{padding:clamp(5rem,12vw,10rem) 0}
+  .sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:3rem;align-items:end;margin-bottom:clamp(3rem,6vw,5rem)}
+  .sec-head h2{font-size:clamp(3rem,6.4vw,6.5rem)}
+  .sec-head > p{color:#cfcfcf;max-width:40ch;justify-self:end}
+  .num{font-family:var(--serif);font-style:italic;color:var(--mute);font-size:1.4rem}
+
+  /* ---------- SERVICE ---------- */
+  .service{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
+  .service .pic{position:relative;min-height:620px;overflow:hidden}
+  .service .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.5) brightness(.8);transition:filter .8s, transform 1.2s}
+  .service:hover .pic img{filter:grayscale(0) brightness(.9);transform:scale(1.03)}
+  .service .body{padding:clamp(2rem,4vw,4rem);display:flex;flex-direction:column;gap:2rem}
+  .price{display:flex;align-items:flex-start;gap:.4rem;font-family:var(--serif);line-height:.8}
+  .price small{font-size:2.2rem;margin-top:.6rem}
+  .price strong{font-size:clamp(6rem,10vw,9.5rem);font-weight:500}
+  .service h3{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,3.5vw,3.2rem);line-height:1}
+  .checks{list-style:none;border-top:1px solid var(--line)}
+  .checks li{display:grid;grid-template-columns:3rem 1fr;padding:1.05rem 0;border-bottom:1px solid var(--line)}
+  .checks li::before{content:counter(c,decimal-leading-zero);counter-increment:c;font-family:var(--serif);font-style:italic;color:var(--mute);font-size:1.15rem;padding-top:.1rem}
+  .checks{counter-reset:c}
+
+  /* ---------- MEMBERSHIP ---------- */
+  .member{background:var(--white);color:var(--black)}
+  .member .eyebrow{color:#555}
+  .member .sec-head > p{color:#333}
+  .member-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:0;border:1px solid #000}
+  .pass{padding:clamp(2rem,5vw,4.5rem);display:flex;flex-direction:column;gap:2.2rem;border-right:1px solid #000;background:#000;color:#fff;position:relative;overflow:hidden}
+  .pass .watermark{position:absolute;right:-6%;bottom:-8%;width:62%;opacity:.07;pointer-events:none}
+  .pass .price strong{font-size:clamp(6.5rem,12vw,11rem)}
+  .pass .per{font-family:var(--sans);font-size:1rem;letter-spacing:.24em;text-transform:uppercase;align-self:flex-end;margin-bottom:1rem;color:var(--mute)}
+  .pass-title{font-family:var(--serif);font-size:clamp(2.6rem,4.4vw,4rem);line-height:.95}
+  .incl{display:grid;grid-template-rows:repeat(3,1fr)}
+  .incl > div{display:grid;grid-template-columns:auto 1fr;gap:clamp(1.25rem,3vw,2.5rem);align-items:center;padding:clamp(1.6rem,3vw,2.6rem) clamp(1.5rem,4vw,3.5rem);border-bottom:1px solid #000}
+  .incl > div:last-child{border-bottom:0}
+  .incl .big{font-family:var(--serif);font-size:clamp(4rem,7vw,6.5rem);line-height:.8;min-width:1.6ch}
+  .incl h4{font-family:var(--sans);font-size:clamp(1.3rem,1.8vw,1.65rem);font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+  .incl p{color:#444;font-size:1.05rem;margin-top:.25rem}
+  .fine{font-size:.95rem;color:var(--mute)}
+  .btn.light{border-color:#fff}
+
+  /* ---------- COUNTRY / GALLERY ---------- */
+  .country{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(120px,auto);gap:12px}
+  .tile{position:relative;overflow:hidden;background:#111}
+  .tile img{width:100%;height:100%;object-fit:cover;filter:grayscale(.55) brightness(.78);transition:filter .8s, transform 1.4s}
+  .tile:hover img{filter:grayscale(0) brightness(.92);transform:scale(1.04)}
+  .tile figcaption{position:absolute;left:1.4rem;bottom:1.2rem;right:1.4rem;display:flex;justify-content:space-between;align-items:end;gap:1rem}
+  .tile figcaption b{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3.2vw,3.2rem);line-height:.9}
+  .tile figcaption span{font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:#ddd}
+  .t1{grid-column:1/8;grid-row:span 5}
+  .t2{grid-column:8/13;grid-row:span 3}
+  .t3{grid-column:8/13;grid-row:span 2}
+  .t4{grid-column:1/5;grid-row:span 3}
+  .t5{grid-column:5/13;grid-row:span 3}
+
+  /* ---------- HOYT ---------- */
+  .hoyt{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .hoyt .split{display:grid;grid-template-columns:1fr 1fr;min-height:720px}
+  .hoyt .img{position:relative}
+  .hoyt .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+  .hoyt .copy{padding:clamp(3rem,7vw,7rem) var(--pad);display:flex;flex-direction:column;justify-content:center;gap:2rem}
+  .hoyt h2{font-size:clamp(3rem,6vw,6rem)}
+  .hoyt ul{list-style:none;display:grid;gap:0;border-top:1px solid var(--line)}
+  .hoyt li{padding:1.1rem 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem}
+  .hoyt li span:last-child{color:var(--mute)}
+
+  /* ---------- PROCESS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+  .step{padding:3rem 2.5rem 0 0;border-right:1px solid var(--line);padding-left:2.5rem}
+  .step:first-child{padding-left:0}
+  .step:last-child{border-right:0}
+  .step .n{font-family:var(--serif);font-size:clamp(5rem,9vw,8.5rem);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55)}
+  .step h3{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3vw,2.8rem);margin:1.6rem 0 .8rem;line-height:1}
+  .step p{color:#c9c9c9;max-width:30ch}
+
+  /* ---------- REVIEWS PLACEHOLDER ---------- */
+  .reviews{border:1px dashed rgba(255,255,255,.3);padding:clamp(2.5rem,6vw,5rem);display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+  .reviews h3{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,4.5vw,4.4rem);line-height:.95}
+  .reviews p{color:#bdbdbd;margin-top:1rem;max-width:46ch}
+  .stars{font-size:2.2rem;letter-spacing:.35em;color:var(--bone)}
+
+  /* ---------- VISIT / BOOK ---------- */
+  .visit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,6rem)}
+  .facts{display:grid;gap:0;align-content:start;border-top:1px solid var(--line)}
+  .facts div{display:grid;grid-template-columns:9rem 1fr;padding:1.4rem 0;border-bottom:1px solid var(--line)}
+  .facts dt{font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mute);font-weight:600;padding-top:.35rem}
+  .facts dd{font-size:clamp(1.25rem,1.6vw,1.5rem)}
+  .ph{color:var(--mute);font-style:italic;font-family:var(--serif);font-size:1.35em}
+  form{display:grid;gap:1.4rem}
+  .field{display:grid;gap:.5rem}
+  label{font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mute);font-weight:600}
+  input,select,textarea{background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.35);color:#fff;font:400 1.35rem var(--sans);padding:.7rem 0;outline:none;border-radius:0;transition:border-color .25s}
+  input:focus,select:focus,textarea:focus{border-color:#fff}
+  select option{background:#000}
+  textarea{resize:vertical;min-height:110px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+  .sent{display:none;border:1px solid var(--line);padding:1.5rem;font-size:1.15rem}
+  .sent.show{display:block}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:clamp(4rem,8vw,7rem) 0 2.5rem}
+  .foot-top{display:grid;grid-template-columns:auto 1fr;gap:clamp(2rem,6vw,6rem);align-items:end}
+  .foot-top img{width:clamp(180px,22vw,300px)}
+  .foot-big{font-family:var(--serif);font-size:clamp(2.6rem,6.2vw,6.5rem);line-height:.95;text-align:right}
+  .foot-bot{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-top:4rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:.9rem;color:var(--mute)}
+  .foot-bot a:hover{color:#fff}
+
+  /* ---------- MOCKUP BANNER ---------- */
+  .mock{position:fixed;right:1rem;bottom:1rem;z-index:60;background:#fff;color:#000;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.6rem .9rem}
+
+  /* ---------- REVEAL ---------- */
+  .rv{opacity:0;transform:translateY(28px);transition:opacity 1s ease, transform 1s ease}
+  .rv.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1000px){
+    .links{position:fixed;inset:92px 0 auto 0;flex-direction:column;align-items:flex-start;gap:0;background:#000;border-bottom:1px solid var(--line);padding:1rem var(--pad) 2rem;transform:translateY(-130%);transition:transform .4s;font-size:1.4rem}
+    .links.open{transform:none}
+    .links a:not(.btn){padding:1rem 0;width:100%;border-bottom:1px solid var(--line)}
+    .links .btn{margin-top:1.5rem}
+    .menu-toggle{display:block}
+    .hero-foot,.sec-head,.service,.member-grid,.hoyt .split,.visit,.foot-top,.reviews{grid-template-columns:1fr}
+    .sec-head > p{justify-self:start}
+    .service .pic{min-height:380px}
+    .pass{border-right:0;border-bottom:1px solid #000}
+    .hoyt .img{min-height:420px}
+    .steps{grid-template-columns:1fr}
+    .step,.step:first-child{padding:2.5rem 0;border-right:0;border-bottom:1px solid var(--line)}
+    .country{grid-template-columns:1fr 1fr;grid-auto-rows:220px}
+    .t1{grid-column:1/3;grid-row:span 2}.t2,.t3{grid-column:auto;grid-row:span 1}.t4{grid-column:1/2;grid-row:span 1}.t5{grid-column:2/3;grid-row:span 1}
+    .foot-big{text-align:left}
+    .dealer-tag{top:110px}
+  }
+  @media (max-width:600px){
+    .brand span{display:none}
+    .two{grid-template-columns:1fr}
+    .facts div{grid-template-columns:1fr;gap:.3rem}
+    .country{grid-template-columns:1fr;grid-auto-rows:260px}
+    .t1,.t2,.t3,.t4,.t5{grid-column:1/-1;grid-row:span 1}
+    .dealer-tag{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="The Team Room home">
+      <img src="assets/logo.png" alt="The Team Room logo">
+      <span>The Team Room<br>Custom Bow Shop</span>
+    </a>
+    <button class="menu-toggle" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
+    <nav class="links" id="links">
+      <a href="#service">Tuning</a>
+      <a href="#membership">Season Pass</a>
+      <a href="#hoyt">Hoyt</a>
+      <a href="#visit">Visit</a>
+      <a href="#book" class="btn">Book a Tune <span class="arr">&rarr;</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg" role="img" aria-label="Bull elk in a forest"></div>
+  <div class="dealer-tag">Authorized Dealer<b>Hoyt Archery</b></div>
+  <div class="wrap">
+    <p class="eyebrow rv">The Team Room &nbsp;/&nbsp; Custom Bow Shop</p>
+    <h1 class="display rv" style="margin-top:1.4rem">Built for the shot that <em>counts.</em></h1>
+    <div class="hero-foot rv">
+      <p>Custom strings, precision tuning and hand-built arrows for bowhunters who don't leave anything to chance.</p>
+      <div class="cta-row">
+        <a href="#book" class="btn fill">Book a Tune <span class="arr">&rarr;</span></a>
+        <a href="#membership" class="btn">Season Pass</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>Custom Strings</span><span>Precision Tuning</span><span>Hand-Built Arrows</span><span>Authorized Hoyt Dealer</span><span>Whitetail</span><span>Elk</span><span>Pronghorn</span>
+    <span>Custom Strings</span><span>Precision Tuning</span><span>Hand-Built Arrows</span><span>Authorized Hoyt Dealer</span><span>Whitetail</span><span>Elk</span><span>Pronghorn</span>
+  </div>
+</div>
+
+<!-- SERVICE -->
+<section class="sec" id="service">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv">
+        <p class="num">01</p>
+        <h2 class="display" style="margin-top:.6rem">String &amp;<br>Tune</h2>
+      </div>
+      <p class="rv">Your bow is a machine. Strings stretch, cams drift out of time, and a rest that's a hair off shows up at 40 yards. We bring it back to dead-on.</p>
+    </div>
+
+    <article class="service rv">
+      <div class="pic">
+        <img src="https://images.unsplash.com/photo-1724118262304-6026d00fb30b?auto=format&fit=crop&w=1600&q=80" alt="Archer drawing a compound bow outdoors" loading="lazy">
+      </div>
+      <div class="body">
+        <p class="eyebrow">Our signature service</p>
+        <div class="price"><small>$</small><strong>300</strong></div>
+        <h3>New custom strings &amp; a full bow tune</h3>
+        <ul class="checks">
+          <li>Custom string &amp; cable set, built for your bow</li>
+          <li>Cam timing &amp; synchronization</li>
+          <li>Draw length &amp; draw weight set to you</li>
+          <li>Rest, sight &amp; peep alignment</li>
+          <li>Paper tune and shoot-through check</li>
+        </ul>
+        <div><a href="#book" class="btn">Book this service <span class="arr">&rarr;</span></a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="sec member" id="membership">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv">
+        <p class="num" style="color:#777">02</p>
+        <h2 class="display" style="margin-top:.6rem">The Season<br>Pass</h2>
+      </div>
+      <p class="rv">One payment a year. Fresh strings, a full tune and a dozen arrows built for your setup, ready before opening day, every year.</p>
+    </div>
+
+    <div class="member-grid rv">
+      <div class="pass">
+        <img class="watermark" src="assets/logo.png" alt="">
+        <p class="eyebrow">Annual membership</p>
+        <div class="price"><small>$</small><strong>450</strong><span class="per">/ year</span></div>
+        <p class="pass-title">Everything your bow needs for the season.</p>
+        <div class="cta-row">
+          <a href="#book" class="btn fill" id="joinBtn">Join the Season Pass <span class="arr">&rarr;</span></a>
+        </div>
+        <p class="fine">Renews every 12 months. Cancel anytime before renewal.</p>
+      </div>
+      <div class="incl">
+        <div><span class="big">1</span><div><h4>New Custom Strings</h4><p>A fresh string &amp; cable set built for your bow.</p></div></div>
+        <div><span class="big">1</span><div><h4>Full Bow Tune</h4><p>Timing, alignment, paper tune: the full workup.</p></div></div>
+        <div><span class="big">12</span><div><h4>Custom Arrows</h4><p>One dozen arrows cut, fletched and spined for your setup.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTRY GALLERY -->
+<section class="sec" id="country">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv">
+        <p class="num">03</p>
+        <h2 class="display" style="margin-top:.6rem">Tuned for<br>every hunt</h2>
+      </div>
+      <p class="rv">Timber whitetail, high-country elk or a long shot on open prairie. We set your bow up for the animal and the country you hunt.</p>
+    </div>
+
+    <div class="country">
+      <figure class="tile t1 rv">
+        <img src="https://images.unsplash.com/photo-1634310612147-d7556e41394e?auto=format&fit=crop&w=1600&q=80" alt="Bull elk bugling" loading="lazy">
+        <figcaption><b>Elk</b><span>High country</span></figcaption>
+      </figure>
+      <figure class="tile t2 rv">
+        <img src="https://images.unsplash.com/photo-1606936405812-1bdddbd08fd5?auto=format&fit=crop&w=1200&q=80" alt="Whitetail buck in a beam of sunlight" loading="lazy">
+        <figcaption><b>Whitetail</b><span>Timber</span></figcaption>
+      </figure>
+      <figure class="tile t3 rv">
+        <img src="https://images.unsplash.com/photo-1622909988979-b591dbe146f1?auto=format&fit=crop&w=1200&q=80" alt="Pronghorn antelope in grassland" loading="lazy">
+        <figcaption><b>Pronghorn</b><span>Open prairie</span></figcaption>
+      </figure>
+      <figure class="tile t4 rv">
+        <img src="https://images.unsplash.com/photo-1764826538914-dc0fdd0d6c1f?auto=format&fit=crop&w=1200&q=80" alt="Young buck leaping through a forest clearing" loading="lazy">
+        <figcaption><b>Mule &amp; Whitetail</b><span>Woodlot</span></figcaption>
+      </figure>
+      <figure class="tile t5 rv">
+        <img src="https://images.unsplash.com/photo-1485735327171-5705337dfb05?auto=format&fit=crop&w=1800&q=80" alt="Silhouette of a deer by a lake at dawn" loading="lazy">
+        <figcaption><b>First light</b><span>Opening day</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- HOYT -->
+<section class="hoyt" id="hoyt">
+  <div class="split">
+    <div class="img rv">
+      <img src="https://images.unsplash.com/photo-1688623793458-95a2a14f0baf?auto=format&fit=crop&w=1600&q=80" alt="Two tule elk bulls in a grass field" loading="lazy" style="filter:grayscale(.5) brightness(.75)">
+    </div>
+    <div class="copy">
+      <p class="eyebrow rv">Authorized dealer</p>
+      <h2 class="display rv">Shoot a new<br>Hoyt here.</h2>
+      <p class="rv" style="color:#cfcfcf;max-width:38ch">As an authorized Hoyt dealer, we'll fit you to the right bow, set it up in-house and tune it before it leaves the shop. Your new bow is ready to hunt the day you take it home.</p>
+      <ul class="rv">
+        <li><span>Fitting &amp; draw-length setup</span><span>Included</span></li>
+        <li><span>Accessory install &amp; tune</span><span>Included</span></li>
+        <li><span>Warranty support</span><span>Through Hoyt</span></li>
+      </ul>
+      <div class="rv"><a href="#visit" class="btn">Come shoot one <span class="arr">&rarr;</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv">
+        <p class="num">04</p>
+        <h2 class="display" style="margin-top:.6rem">How it<br>works</h2>
+      </div>
+      <p class="rv">No guesswork, no waiting around for weeks. Drop it off, we dial it in, you pick it up ready to hunt.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><div class="n">01</div><h3>Drop off</h3><p>Book online or call. Bring your bow and tell us how and what you hunt.</p></div>
+      <div class="step rv"><div class="n">02</div><h3>Dial in</h3><p>New strings go on, then we time, align and paper tune until it shoots clean.</p></div>
+      <div class="step rv"><div class="n">03</div><h3>Draw with confidence</h3><p>Pick up a bow that's set to you and shooting true.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS PLACEHOLDER -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="reviews rv">
+      <div>
+        <p class="eyebrow">Google reviews</p>
+        <h3 style="margin-top:1rem">Your customers' reviews go here.</h3>
+        <p>Once the Google Business Profile is live, real customer reviews will display in this space and link straight to the profile.</p>
+      </div>
+      <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT / BOOK -->
+<section class="sec" id="visit" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv">
+        <p class="num">05</p>
+        <h2 class="display" style="margin-top:.6rem">Visit the<br>shop</h2>
+      </div>
+      <p class="rv">Stop in, shoot a Hoyt, or drop off your bow. Booking ahead gets you to the front of the line.</p>
+    </div>
+
+    <div class="visit">
+      <dl class="facts rv">
+        <div><dt>Address</dt><dd><span class="ph">Shop address</span></dd></div>
+        <div><dt>Hours</dt><dd><span class="ph">Shop hours</span></dd></div>
+        <div><dt>Phone</dt><dd><span class="ph">(000) 000-0000</span></dd></div>
+        <div><dt>Email</dt><dd>hello@theteamroomcbs.com</dd></div>
+        <div><dt>Web</dt><dd>theteamroomcbs.com</dd></div>
+      </dl>
+
+      <div id="book" class="rv">
+        <form id="bookForm" novalidate>
+          <div class="two">
+            <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field">
+            <label for="svc">I'm interested in</label>
+            <select id="svc" name="svc">
+              <option>String &amp; Tune ($300)</option>
+              <option>Season Pass ($450 / year)</option>
+              <option>Shopping for a new Hoyt</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field"><label for="bow">Your bow (make / model)</label><input id="bow" name="bow"></div>
+          <div class="field"><label for="msg">Anything we should know?</label><textarea id="msg" name="msg"></textarea></div>
+          <div><button type="submit" class="btn fill">Request appointment <span class="arr">&rarr;</span></button></div>
+          <p class="sent" id="sent">Thanks. This is a mockup, so nothing was sent. On the live site this form will email the shop.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <img src="assets/logo.png" alt="The Team Room logo">
+      <p class="foot-big">The Team Room<br><em style="color:var(--bone)">Custom Bow Shop</em></p>
+    </div>
+    <div class="foot-bot">
+      <span>&copy; <span id="yr"></span> The Team Room CBS. Authorized Hoyt dealer.</span>
+      <span>Photos: Unsplash (C. Greene, R. Hennessy, D. Thielen, C. Chase, D. Koplyk, G. Bendig, Y S)</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mock">Concept mockup</div>
+
+<script>
+  // Solid nav after scrolling
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('solid', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Mobile menu
+  const btn = document.getElementById('menuBtn'), links = document.getElementById('links');
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open); btn.textContent = open ? 'Close' : 'Menu';
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open'); btn.textContent = 'Menu'; btn.setAttribute('aria-expanded', false);
+  }));
+
+  // Reveal on scroll
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.12}) : null;
+  document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+  // Season Pass button preselects the membership in the form
+  document.getElementById('joinBtn').addEventListener('click', () => {
+    document.getElementById('svc').selectedIndex = 1;
+  });
+
+  // Mock form
+  document.getElementById('bookForm').addEventListener('submit', e => {
+    e.preventDefault(); document.getElementById('sent').classList.add('show');
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
